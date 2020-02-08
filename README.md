@@ -8,16 +8,16 @@ with a number of base operations. Unicode codepoints greater than that number go
 
 For example, if `a` corresponds to the `sum` operation, and `b` corresponds to the `diff` operation, `c` might correspond to the program `ab`. If the numbers *`m`*, *`n`*, and *`o`* are on the stack, the programs may work like this
 
-| Opcode | Program | Result |
-| ------ | ------- | ------ |
-| a      | a       |  m + n |
-| b      | b       | m - n  |
+| Opcode | Program | Result      |
+| ------ | ------- | ----------- |
+| a      | a       | m + n       |
+| b      | b       | m - n       |
 | c      | aa      | (m + n) + o |
 
 Following some kinda pseudo-binary counting system we could keep going
 
-| Opcode | Program | Result |
-| ------ | ------  | ------ |
+| Opcode | Program | Result      |
+| ------ | ------  | ------      |
 | d      | ab      | (m + n) - o |
 | e      | ba      | (m - n) + o |
 | f      | bb      | (m - n) - o |
@@ -29,9 +29,6 @@ On the interpreter side... ideally we can reconstruct the program string from th
 And sure it would be nice if codepoints made _sense_ but that would make this a lot harder so. Really part of this project is writing something that compiles to this.
 
 ## BASE OPS
-
-### Integer Literals
-- **num** - Push the given digit onto the stack. Crap that means 0 and f are equivalent and so are 1 and t
 
 ### Math
 - **sum** - Pop the top two items off the stack, add them, and push the result
