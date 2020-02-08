@@ -1,0 +1,25 @@
+ncvc1qw94asjkc2m93p1asj2d11j3p1a11j
+          1         2
+012345678901234567890123456789
+
+n: read a number (say 100 for now): [100]
+c: copy it: [100, 100]
+v: print it: [100]
+c: copy it again [100, 100]
+t: push a 1: [1, 100, 100]
+q: check if the original number is equal to 1: [0, 100]
+w: flip the result: [1, 100]
+94a: push the location of the next 'block': [13, 1, 100]
+s: swap: [1, 13, 100]
+j: if the result is 1, jump to the next 'block': [100]
+k: exit
+c: copy: [100, 100]
+2: push 2 [2, 100, 100]
+m: mod [0, 100]
+93pta: push odd case location: [28, 0, 100]
+s: swap: [0, 28, 100]
+j: jump to odd case if 1: [100]
+2d: divide by 2: [50]
+ttj: jump to index 1: [50]
+3dta: divide by 3, add 1: [34] // branch skipped in this case tho
+ttj: jump to index 1: [34]
