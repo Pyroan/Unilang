@@ -40,6 +40,8 @@ And sure it would be nice if codepoints made _sense_ but that would make this a 
 - **div** - Pop the top two items off the stack, divide the first by the second (integer division), and push the result.
 - **mod** - Pop the top two items off the stack, divide the first by the second, and return the remainder.
 - **exp** - Pop the top two items off the stack, raise the first to the power of the second, and push the result
+- **lshf** - Pop the top two items, _a_ and _b_, off the stack, shift _b_ left by _a_ bits, and push the result onto the stack.
+- **rshf** - Pop the top two items, _a_ and _b_, off the stack, shift _b_ right by _a_ bits, and push the result onto the stack.
 
 ### I/O
 - **cin** - Push every character in an input string (in reverse order - first character in the input should be on the top of the stack)
@@ -53,8 +55,8 @@ And sure it would be nice if codepoints made _sense_ but that would make this a 
 - **lt** - Pop the top two values off the stack. If the first is less than the second, push 1. Else, push 0.
 - **jt** - Jump if True: Pop the top two values off the stack. If the first is greater than 0, move the instruction pointer to the index given by the second value.
 - **not** - Logical NOT: pop the top value of the stack. If it's 0, push 1. If it's nonzero, push 0
-- ~~**true** - Push 1 onto the stack~~
-- ~~**fals** - Push 0 onto the stack~~
+- **true** - Push 1 onto the stack
+- **fals** - Push 0 onto the stack
 - **exec** - Pop the top value off the stack, and run it as though it's a part of the program.
 - **kill** - Close the program.
 - **updt** - Pop two values, _n_ and _m_, off the stack. Replace the character at index _n_ in the program with codepoint _m_
@@ -69,37 +71,45 @@ And sure it would be nice if codepoints made _sense_ but that would make this a 
 - **flsh** - Flush: Pop the entire stack and output it as a string
 - **this** - Push the index of this instruction onto the stack (or, push the instruction pointer's current index onto the stack)
 
+### Misc.
+- **str** - Switch to/from string mode, pushing each character in the program onto the stack until you reach another str instruction
+- **cmnt** - Switch to/from comment mode, every character up to the next cmnt instruction will be treated as a no-op
+
 
 
 | Character | Codepoint | Op   | Pops  |
 | --------- | --------- | ---- | ----- |
-| a | 97  | sum  | 2 |
-| b | 98  | diff | 2 |
-| c | 99  | copy | 1 |
-| d | 100 | div  | 2 |
-| e | 101 | exp  | 2 |
-| f | 102 | flsh | X |
-| g | 103 | gt   | 2 |
-| h | 104 | hmm  | 0 |
-| i | 105 | cin  | 0 |
-| j | 106 | jt   | 2 |
-| k | 107 | kill | 0 |
-| l | 108 | lt   | 2 |
-| m | 109 | mod  | 2 |
-| n | 110 | nin  | 0 |
-| o | 111 | cout | 1 |
-| p | 112 | mult | 2 |
-| q | 113 | eq   | 2 |
-| r | 114 | roll | 1 | 
-| s | 115 | swap | 0 |
-| t | 116 | this | 0 |
-| u | 117 | updt | 2 |
-| v | 118 | nout | 1 |
-| w | 119 | not  | 1 |
-| x | 120 | exec | 1 |
-| y | 121 | yeet | 1 |
-| z | 122 | size | 0 |
-| -- |-- |-- |-- |
-| 0-9 | | num | 0 |
+| `         | U+0060    | str  | 0     |
+| a         | U+0061    | sum  | 2     |
+| b         | U+0062    | diff | 2     |
+| c         | U+0063    | copy | 1     |
+| d         | U+0064    | div  | 2     |
+| e         | U+0065    | exp  | 2     |
+| f         | U+0066    | fals | 0     |
+| g         | U+0067    | gt   | 2     |
+| h         | U+0068    | hmm  | 0     |
+| i         | U+0069    | cin  | 0     |
+| j         | U+006A    | jt   | 2     |
+| k         | U+006B    | kill | 0     |
+| l         | U+006C    | lt   | 2     |
+| m         | U+006D    | mod  | 2     |
+| n         | U+006E    | nin  | 0     |
+| o         | U+006F    | cout | 1     |
+| p         | U+0070    | mult | 2     |
+| q         | U+0071    | eq   | 2     |
+| r         | U+0072    | roll | 1     |
+| s         | U+0073    | swap | 0     |
+| t         | U+0074    | true | 0     |
+| u         | U+0075    | updt | 2     |
+| v         | U+0076    | nout | 1     |
+| w         | U+0077    | not  | 1     |
+| x         | U+0078    | exec | 1     |
+| y         | U+0079    | yeet | 1     |
+| z         | U+007A    | size | 0     |
+| {         | U+007B    | lshf | 2     |
+| \|        | U+007C    | this | 0     |
+| }         | U+007D    | rshf | 2     |
+| ~         | U+007E    | cmnt | 0     |
+| ␡         | U+007F    | flsh | X     |
 
 ## Useful Non-base Ops
