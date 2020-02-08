@@ -94,13 +94,14 @@ class Unilang:
             
             elif self.mode == STRINGL:
                 if self.tape[self.ip] == STR:
-                    self.mode == EXECUTE
+                    self.mode = EXECUTE
                 else:
                     self.stack.append(ord(self.tape[self.ip]))
 
             elif self.mode == COMMENT:
                 if self.tape[self.ip] == CMNT:
-                    self.mode == EXECUTE
+                    self.mode = EXECUTE
+            
             self.ip += 1
 
     ############
@@ -261,7 +262,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     prog = ''
     if len(args.file) > 0:
-        with open(args.file, 'r') as f:
+        with open(args.file, 'r', encoding='utf-8') as f:
             prog = f.read()
     else:
         prog = args.prog
