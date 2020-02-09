@@ -1,5 +1,6 @@
 import argparse
-from unilang_opcodes import *
+from opcodes import *
+from compression import compress_program
 
 EXECUTE = 0
 STRINGL = 1
@@ -20,6 +21,7 @@ class Unilang:
                 print("Stack: " + ', '.join(map(str, self.stack)))
                 print("ip: " + str(self.ip) + ', ins: ' + self.tape[self.ip] )
                 input()
+
 
             if self.mode == EXECUTE:
                 if self.tape[self.ip] in '0123456789':
@@ -250,15 +252,16 @@ class Unilang:
         self.stack.pop()
     
 
-
-
-
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description="Unilang Interpreter")
-    parser.add_argument('-p', '--prog', type=str, help='Execute a script given in the command line')
+    parser.add_argument('-p', '--prog', type=str,
+        help='Execute a script given in the command line')
     parser.add_argument('-f', '--file', type=str, metavar='', default='',
         help='Optionally specify the source file')
-    parser.add_argument('-d', '--debug', action='store_true', help='Run in debug mode')
+    parser.add_argument('-d', '--debug', action='store_true',
+        help='Run in debug mode')
+    parser.add_argument('-c', '--compress', action='store_true',
+        help='Compress the given program instead of executing it.')
     args = parser.parse_args()
     prog = ''
     if len(args.file) > 0:
@@ -267,5 +270,14 @@ if __name__ == '__main__':
     else:
         prog = args.prog
     
-    uni = Unilang(prog)
-    uni.run(args.debug)
+    if args.compress:
+        # This should eventually output to a file at least
+        # print the result or something
+        print(compress_program(prog))
+    else:
+        uni = Unilang(prog)
+        uni.run(args.debug)
+
+
+if __name__ == '__main__':
+    main()
