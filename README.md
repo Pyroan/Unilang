@@ -1,4 +1,4 @@
-# Omnilang / Unilang (both working titles)
+# Unilang
 
 ## BASIC USAGE
 ```
