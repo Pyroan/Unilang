@@ -1,5 +1,5 @@
 import unittest
-from src.compression import *
+from src.compression import decompress_program, compress_program
 
 
 class TestConsistency(unittest.TestCase):
