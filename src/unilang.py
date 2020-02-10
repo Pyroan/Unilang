@@ -270,6 +270,7 @@ def main():
         help='Run in debug mode')
     parser.add_argument('-c', '--compress', action='store_true',
         help='Compress the given program instead of executing it.')
+    parser.add_argument('--decompress', action='store_true')
     parser.add_argument('-o', '--outfile', type=str, default='',
         help='Optional file to output to')
     args = parser.parse_args()
@@ -286,6 +287,8 @@ def main():
 
     if args.compress:
         print(compress_program(prog), end='')
+    elif args.decompress:
+        print(decompress_program(prog), end='')
     else:
         uni = Unilang(prog)
         uni.run(args.debug)
