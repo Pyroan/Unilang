@@ -31,7 +31,8 @@ def compress_program(prog: str) -> str:
                 j = 0
             cmpr.append(prog[i])
         i += 1
-    # Playing catchup again...
+    # Playing catchup again for end of string...
+    # (still bad)
     if next_chr > 0:
         cmpr.append(chr(next_chr + 0x5f))
 
@@ -50,7 +51,9 @@ def decompress_char(char) -> str:
     snippet = []
     codepoint = ord(char) - 0x5f
     while codepoint > 0:
-        snippet.append(chr(codepoint % 32 + 0x5f))
+        codepoint -= 1
+        next_char = codepoint % 0x20 + 0x60
+        snippet.append(chr(next_char))
         codepoint //= 0x20
     return ''.join(reversed(snippet))
 
