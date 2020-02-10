@@ -1,5 +1,5 @@
 # Unilang
-
+Are you tired of so-called "programming" languages not compiling because of "invalid" characters? Well then oh boy, do we have a language for you.
 ## BASIC USAGE
 ```
 # Run program from command line
@@ -18,7 +18,7 @@ python src/unilang.py -f input_file.uni -o output_file.uni
 ```
 
 ## THE BRIEF
-Unilang is a stack-based esoteric programming language where every valid Unicode
+Unilang is a stack-based esoteric programming language where every valid¹ Unicode
 character corresponds to a unique operation or sequence of operations. Unilang's
 only data structure is the main stack, which can be manipulated. Because of the
 axiom that all code should be valid, attempting to pop from an empty stack will
