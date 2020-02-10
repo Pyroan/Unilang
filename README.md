@@ -18,34 +18,54 @@ python src/unilang.py -f input_file.uni -o output_file.uni
 ```
 
 ## THE BRIEF
-This is an esoteric programming language where every unicode character corresponds to a unique operation or sequence of operations.
+Unilang is a stack-based esoteric programming language where every valid Unicode
+character corresponds to a unique operation or sequence of operations. Unilang's
+only data structure is the main stack, which can be manipulated. Because of the
+axiom that all code should be valid, attempting to pop from an empty stack will
+return a 0, rather than erroring.
 
-Okay so basically the way this works is it's a stack-based language
-with a number of base operations. Unicode codepoints greater than that number go through sequences of the base ops.
 
-For example, if `a` corresponds to the `sum` operation, and `b` corresponds to the `diff` operation, `c` might correspond to the program `ab`. If the numbers *`m`*, *`n`*, and *`o`* are on the stack, the programs may work like this
+Code Points U+0000:U+005F are reserved for **non-chainable** operations. Each of
+these characters has its own unique instruction and cannot be compressed using
+higher code points.
 
-| Opcode | Program | Result      |
-| ------ | ------- | ----------- |
-| a      | a       | m + n       |
-| b      | b       | m - n       |
-| c      | aa      | (m + n) + o |
+Code Points U+0060:U+007F are used for **base (chainable)** operations. Like
+non-chainable operations, these each correspond to one instruction. However,
+short sequences of base operations can be substituted with single characters above U+007F.
 
-Following some kinda pseudo-binary counting system we could keep going
+All valid¹ points above U+007F are **chained** operations - they represent the same
+set of instructions as a short sequence of base operations. Each chained operation corresponds
+to one unique set of base operations.
 
-| Opcode | Program | Result      |
-| ------ | ------  | ------      |
-| d      | ab      | (m + n) - o |
-| e      | ba      | (m - n) + o |
-| f      | bb      | (m - n) - o |
+For example, the program `qw` is made of two base ops - `eq`, and `not`. Instead
+of using these, we can instead use the character `ʷ`, which forms the instruction "Not Equal".
 
-Todo: figure out some crap with arity if necessary. The stack might make it not matter
+A Chained Op is encoded as a base-32 integer, with each digit representing a base operation (minus an offset of 0x5f).
 
-On the interpreter side... ideally we can reconstruct the program string from the codepoint of the character. the problem is that not all unicode codepoints are being used. We could try to create a subset of unicode but that's no fun and doesn't fit the brief anyway. We could also just _ignore_ them and escape them.
+```
+q = U+0071 = 113 
+w = U+0077 = 119
+113 - 95 = 18
+119 - 95 = 24
 
-And sure it would be nice if codepoints made _sense_ but that would make this a lot harder so. Really part of this project is writing something that compiles to this.
+w: 24 * 32^0 = 24
+q: 18 * 32^1 = 576
 
-## BASE OPS
+576 + 24 = 600 + 95 = 695 = 0x2b7
+U+02b7 = ʷ
+
+Therefore,
+ʷ has the same function as qw
+```
+
+
+## NON-CHAINABLE OPS
+- **num** - 0-9 and A-Z will push the matching base-36 integer onto the stack.
+
+## BASE ("CHAINABLE") OPS
+
+These are operations using code points U+0060:U+007f. Code points U+0080 and above
+represent strings of these operations.
 
 ### Math
 - **sum** - Pop the top two items off the stack, add them, and push the result
@@ -126,8 +146,13 @@ And sure it would be nice if codepoints made _sense_ but that would make this a 
 | ~         | U+007E    | cmnt | 0     |
 | ␡         | U+007F    | flsh | X     |
 
-## Useful Non-base Ops
+## Useful Chained Ops
 
 | Character | Codepoint | Base Ops | Description |
 | --------- | --------- | -------- | ----------- |
 | ʷ         | U+02b7    | qw       | Not Equals  |
+
+
+---
+¹ A valid code point is defined as any number between 0x0 and 0x10ffff, excluding
+Private Use Areas and Noncharacters as defined in the Unicode standard.
