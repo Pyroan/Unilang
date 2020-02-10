@@ -285,7 +285,7 @@ def main():
         sys.stdout = open(args.outfile, 'w+', encoding='utf-8')
 
     if args.compress:
-        print(compress_program(prog))
+        print(compress_program(prog), end='')
     else:
         uni = Unilang(prog)
         uni.run(args.debug)
