@@ -2,6 +2,7 @@ import argparse
 from opcodes import *
 from compression import compress_program
 
+# Execution Modes
 EXECUTE = 0
 STRINGL = 1
 COMMENT = 2
@@ -109,46 +110,44 @@ class Unilang:
     ############
     # BASE OPS #
     ############
-    
-    # Math
-    def add(self):
+
+    # Helper function to pop two items
+    def pop2(self):
         a = self.stack.pop()
         b = self.stack.pop()
+        return a, b
+
+    # Math
+    def add(self):
+        a, b = self.pop2()
         self.stack.append(a+b)
     
     def diff(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b-a)
     
     def mult(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(a*b)
     
     def div(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b//a)
     
     def mod(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b%a)
     
     def exp(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b**a)
     
     def lshf(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b<<a)
     
     def rshf(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(b>>a)
     
     # I/O 
@@ -168,32 +167,28 @@ class Unilang:
     
     # Comparison / Flow Control
     def eq(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         if a == b:
             self.stack.append(1)
         else:
             self.stack.append(0)
     
     def gt(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         if b > a:
             self.stack.append(1)
         else:
             self.stack.append(0)
     
     def lt(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         if b < a:
             self.stack.append(1)
         else:
             self.stack.append(0)
     
     def jt(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         if a > 0:
             self.ip = b - 1
     
@@ -218,8 +213,7 @@ class Unilang:
         print("Oh no i'm not touching this one yet you can try again later.")
 
     def updt(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.tape[a] = chr(b)
 
     def hmm(self):
@@ -233,8 +227,7 @@ class Unilang:
 
     # Stack manipulation
     def swap(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a, b = self.pop2()
         self.stack.append(a)
         self.stack.append(b)
 
