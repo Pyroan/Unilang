@@ -1,10 +1,13 @@
 import unittest
 from src.compression import *
 
-@unittest.skip
+
 class TestConsistency(unittest.TestCase):
     def test_consistency(self):
-        cases = []
+        cases = [
+            '345ab1vv3v',
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+        ]
         for i in cases:
             self.assertEqual(
                 decompress_program(compress_program(i)), i
@@ -12,7 +15,10 @@ class TestConsistency(unittest.TestCase):
     
     # Calling compression on a compressed string should do nothing
     def test_multiple_compress(self):
-        cases = []
+        cases = [
+            '345ab1vv3v',
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+        ]
         for i in cases:
             self.assertEqual(
                 compress_program(i),
@@ -21,9 +27,12 @@ class TestConsistency(unittest.TestCase):
     
     # Calling decompression on a decompressed string _really_ shouldn't do anything.
     def test_multiple_decompress(self):
-        cases = []
+        cases = [
+            '345ab1vv3v'
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+        ]
         for i in cases:
-            self.assertEqual(decompress_program(i), i)
+            self.assertEqual(decompress_program(decompress_program(i)), i)
 
 
 class TestCompression(unittest.TestCase):
