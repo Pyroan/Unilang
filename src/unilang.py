@@ -1,6 +1,7 @@
 import argparse
+import sys
 from opcodes import *
-from compression import compress_program
+from compression import compress_program, decompress_program
 
 # Execution Modes
 EXECUTE = 0
@@ -14,7 +15,7 @@ class Unilang:
     mode = EXECUTE
 
     def __init__(self, prog: str):
-        self.tape = list(prog)
+        self.tape = list(decompress_program(prog))
 
     def run(self, debug=False):
         while self.ip < len(self.tape):
@@ -94,6 +95,11 @@ class Unilang:
 
                 elif self.tape[self.ip] == KILL:
                     break
+                
+                else:
+                    raise ValueError(
+                        '{} is not a valid operation!'.format(self.tape[self.ip])
+                    )
             
             elif self.mode == STRINGL:
                 if self.tape[self.ip] == STR:
@@ -249,13 +255,16 @@ def main():
     parser = argparse.ArgumentParser(description="Unilang Interpreter")
     parser.add_argument('-p', '--prog', type=str,
         help='Execute a script given in the command line')
-    parser.add_argument('-f', '--file', type=str, metavar='', default='',
+    parser.add_argument('-f', '--file', type=str, default='',
         help='Optionally specify the source file')
     parser.add_argument('-d', '--debug', action='store_true',
         help='Run in debug mode')
     parser.add_argument('-c', '--compress', action='store_true',
         help='Compress the given program instead of executing it.')
+    parser.add_argument('-o', '--outfile', type=str, default='',
+        help='Optional file to output to')
     args = parser.parse_args()
+    
     prog = ''
     if len(args.file) > 0:
         with open(args.file, 'r', encoding='utf-8') as f:
@@ -263,9 +272,10 @@ def main():
     else:
         prog = args.prog
     
+    if len(args.outfile) > 0:
+        sys.stdout = open(args.outfile, 'w+', encoding='utf-8')
+
     if args.compress:
-        # This should eventually output to a file at least
-        # print the result or something
         print(compress_program(prog))
     else:
         uni = Unilang(prog)
