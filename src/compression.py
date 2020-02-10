@@ -39,8 +39,8 @@ def compress_program(prog: str) -> str:
 
 def decompress_program(prog: str) -> str:
     decompressed = []
-    for i in len(prog):
-        if 0x60 <= ord(i) < 0x80:
+    for i in prog:
+        if ord(i) < 0x80:
             decompressed.append(i)
         else:
             decompressed += list(decompress_char(i))
