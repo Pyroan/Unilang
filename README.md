@@ -82,7 +82,7 @@ represent strings of these operations.
 - **cin** - Push every character in an input string (in reverse order - first character in the input should be on the top of the stack)
 - **nin** - Push input onto the stack as a base-10 number
 - **cout** - Pop and output the top value of the stack as a Unicode character
-- **nout** - Pop and output the top value of the stack as a base-10 number.
+- **nout** - Pop and output the top value of the stack as a base-10 number, appending a newline.
 
 ### Comparison/Flow Control
 - **eq** - Pop the top two values of the stack. If both values are equal, push 1 onto the stack. Else, push 0.
@@ -103,7 +103,7 @@ represent strings of these operations.
 - **size** - Push the length of the stack onto the stack.
 - **copy** - Push the top value of the stack onto the stack
 - **yeet** - Pop the top value of the stack and discard it.
-- **flsh** - Flush: Pop the entire stack and output it as a string
+- **flsh** - Flush: Pop the entire stack and output it as a string, appending a newline.
 - **this** - Push the index of this instruction onto the stack (or, push the instruction pointer's current index onto the stack)
 
 ### Misc.
