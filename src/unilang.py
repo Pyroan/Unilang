@@ -121,10 +121,15 @@ class Unilang:
     # BASE OPS #
     ############
 
+    def pop(self):
+        if len(self.stack) == 0:
+            return 0
+        else:
+            return self.stack.pop()
     # Helper function to pop two items
     def pop2(self):
-        a = self.stack.pop()
-        b = self.stack.pop()
+        a = self.pop()
+        b = self.pop()
         return a, b
 
     # Math
@@ -170,10 +175,10 @@ class Unilang:
         self.stack.append(int(input()))
     
     def cout(self):
-        print(chr(self.stack.pop()), end='')
+        print(chr(self.pop()), end='')
 
     def nout(self):
-        print(self.stack.pop(), end='')
+        print(self.pop())
     
     # Comparison / Flow Control
     def eq(self):
@@ -204,7 +209,7 @@ class Unilang:
     
     # logical NOT
     def inv(self):
-        a = self.stack.pop()
+        a = self.pop()
         if a == 0:
             self.stack.append(1)
         else:
@@ -216,8 +221,8 @@ class Unilang:
     def flush(self):
         s = ''
         while len(self.stack) > 0:
-            s += chr(self.stack.pop())
-        print(s, end='')
+            s += chr(self.pop())
+        print(s)
 
     def exec(self):
         print("Oh no i'm not touching this one yet you can try again later.")
@@ -242,7 +247,7 @@ class Unilang:
         self.stack.append(b)
 
     def roll(self):
-        a = self.stack.pop()
+        a = self.pop()
         self.stack = self.stack[a:] + self.stack[:a]
 
     def size(self):
@@ -252,7 +257,7 @@ class Unilang:
         self.stack.append(self.stack[-1])
 
     def yeet(self):
-        self.stack.pop()
+        self.pop()
     
 
 def main():
