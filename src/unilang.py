@@ -30,6 +30,8 @@ class Unilang:
             if self.mode == EXECUTE:
                 if self.tape[self.ip] in '0123456789':
                     self.stack.append(int(self.tape[self.ip]))
+                elif self.tape[self.ip] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                    self.stack.append(ord(self.tape[self.ip]) - ord('A'))
                 elif self.tape[self.ip] == SUM:
                     self.add()
                 elif self.tape[self.ip] == DIFF:
