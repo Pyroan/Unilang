@@ -57,7 +57,7 @@ U+02b7 = ʷ
 Therefore,
 ʷ has the same function as qw
 ```
-
+For your convenience, the official Unilang interpreter provides a program compression feature, which will automatically combine base operations into chained ops for no extra charge!
 
 ## NON-CHAINABLE OPS
 _Note: Some non-chainable ops are still missing._
