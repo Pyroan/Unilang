@@ -18,6 +18,8 @@ class Unilang:
         self.tape = list(decompress_program(prog))
 
     def run(self, debug=False):
+        if debug:
+            print(''.join(self.tape))
         while self.ip < len(self.tape):
             if debug:
                 print("Stack: " + ', '.join(map(str, self.stack)))

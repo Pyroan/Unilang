@@ -1,5 +1,22 @@
 # Omnilang / Unilang (both working titles)
 
+## BASIC USAGE
+```
+# Run program from command line
+python src/unilang.py -p 'insert_program_here'
+
+# Run program from file
+python src/unilang.py -f name_of_file.uni
+
+# Compress program
+python src/unilang.py -cf name_of_file.uni
+
+# Output to a file
+python src/unilang.py -f input_file.uni -o output_file.uni
+
+# Try "python src/unilang.py -h" for more options
+```
+
 ## THE BRIEF
 This is an esoteric programming language where every unicode character corresponds to a unique operation or sequence of operations.
 
@@ -110,3 +127,7 @@ And sure it would be nice if codepoints made _sense_ but that would make this a 
 | ␡         | U+007F    | flsh | X     |
 
 ## Useful Non-base Ops
+
+| Character | Codepoint | Base Ops | Description |
+| --------- | --------- | -------- | ----------- |
+| ʷ         | U+02b7    | qw       | Not Equals  |

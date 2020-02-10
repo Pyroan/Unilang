@@ -6,7 +6,8 @@ class TestConsistency(unittest.TestCase):
     def test_consistency(self):
         cases = [
             '345ab1vv3v',
-            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj',
+            '`!dlroW ,olleH`\u007f'
         ]
         for i in cases:
             self.assertEqual(
@@ -17,7 +18,8 @@ class TestConsistency(unittest.TestCase):
     def test_multiple_compress(self):
         cases = [
             '345ab1vv3v',
-            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj',
+            '`!dlroW ,olleH`\u007f'
         ]
         for i in cases:
             self.assertEqual(
@@ -29,7 +31,8 @@ class TestConsistency(unittest.TestCase):
     def test_multiple_decompress(self):
         cases = [
             '345ab1vv3v'
-            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj'
+            'ncvc1qw94asjkc2m93p1asj2d1cj3p1a1cj',
+            '`!dlroW ,olleH`\u007f'
         ]
         for i in cases:
             self.assertEqual(decompress_program(decompress_program(i)), i)
@@ -54,19 +57,18 @@ class TestCompression(unittest.TestCase):
             self.assertEqual(compress_program(i), o)
 
 class TestDecompression(unittest.TestCase):
-    def test_decompressChar(self):
+    def test_decompressProgram(self):
         cases = {
             '\u00a1': 'aa',
-            '\u00a2': 'ab'
+            '\u00a2': 'ab',
+            '\u0081': '`a',
+            '\u00bf': 'a\u007f',
+            '\u0461': '\u007fa',
+            '\u009f': '`\u007f',
+            '\u0460': '\u007f`'
         }
         for i, o in cases.items():
-            self.assertEqual(decompress_char(i), o)
-
-    def test_decompressProgram(self):
-        cases = {}
-        for i, o in cases.items():
-            self.assertEqual(decompress_char(i), o)
-
+            self.assertEqual(decompress_program(i), o)
 
 if __name__ == '__main__':
     unittest.main()
