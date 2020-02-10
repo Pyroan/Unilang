@@ -162,18 +162,18 @@ class Unilang:
     
     # I/O 
     def cin(self):
-        s = input("Input String: ")
+        s = input()
         for c in reversed(s):
             self.stack.append(ord(c))
     
     def nin(self):
-        self.stack.append(int(input("Input Integer: ")))
+        self.stack.append(int(input()))
     
     def cout(self):
-        print(chr(self.stack.pop()))
+        print(chr(self.stack.pop()), end='')
 
     def nout(self):
-        print(self.stack.pop())
+        print(self.stack.pop(), end='')
     
     # Comparison / Flow Control
     def eq(self):
@@ -217,7 +217,7 @@ class Unilang:
         s = ''
         while len(self.stack) > 0:
             s += chr(self.stack.pop())
-        print(s)
+        print(s, end='')
 
     def exec(self):
         print("Oh no i'm not touching this one yet you can try again later.")
