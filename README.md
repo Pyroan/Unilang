@@ -60,6 +60,7 @@ Therefore,
 
 
 ## NON-CHAINABLE OPS
+_Note: Some non-chainable ops are still missing._
 - **num** - 0-9 and A-Z will push the matching base-36 integer onto the stack.
 
 ## BASE ("CHAINABLE") OPS
@@ -155,4 +156,5 @@ represent strings of these operations.
 
 ---
 ¹ A valid code point is defined as any number between 0x0 and 0x10ffff, excluding
-Private Use Areas and Noncharacters as defined in the Unicode standard.
+those which fall within Private Use Areas and Noncharacters as defined in the
+Unicode standard.
