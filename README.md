@@ -63,6 +63,24 @@ For your convenience, the official Unilang interpreter provides a program compre
 _Note: Some non-chainable ops are still missing._
 - **num** - 0-9 and A-Z will push the matching base-36 integer onto the stack.
 
+_Not Implemented_:
+- **quin** - Output the program's source code and exit
+- **hewo** - Output ("Hello, World!")
+- **rev** - Reverse the stack
+- **nnou** - Pop the top item of the stack and print it as a base-10
+ integer, with a newline.
+- **ncou** - Pop the top item of the stack and print it as a character,
+ with a newline.
+- **sout** - Pop items off the stack until reaching a U+0000 (NUL), then output it as a string.
+- **nsou** - Pop items off the stack until reaching a U+0000 (NUL), then output it as a string with a newline.
+- **fact** - Pop the top item of the stack and push its factorial
+- **prim** - Pop the top item of the stack. If it's prime, push 1. If it's composite, push 0.
+- **unic** - Pop the top item of the stack and output its corresponding Unicode code point
+- **and** - Bitwise AND: Pop the top two items `a` and `b` off the stack, and push `a AND b` 
+- **or** - Bitwise OR: Pop the top two items `a` and `b` off the stack, and push `a OR b`
+- **xor** - Bitwise XOR: Pop the top two items `a` and `b` off the stack, and push `a XOR b`
+
+
 ## BASE ("CHAINABLE") OPS
 
 These are operations using code points U+0060:U+007f. Code points U+0080 and above
@@ -75,14 +93,14 @@ represent strings of these operations.
 - **div** - Pop the top two items off the stack, divide the first by the second (integer division), and push the result.
 - **mod** - Pop the top two items off the stack, divide the first by the second, and return the remainder.
 - **exp** - Pop the top two items off the stack, raise the first to the power of the second, and push the result
-- **lshf** - Pop the top two items, _a_ and _b_, off the stack, shift _b_ left by _a_ bits, and push the result onto the stack.
-- **rshf** - Pop the top two items, _a_ and _b_, off the stack, shift _b_ right by _a_ bits, and push the result onto the stack.
+- **lshf** - Pop the top two items, `a` and `b`, off the stack, shift `b` left by `a` bits, and push the result onto the stack.
+- **rshf** - Pop the top two items, `a` and `b`, off the stack, shift `b` right by `a` bits, and push the result onto the stack.
 
 ### I/O
 - **cin** - Push every character in an input string (in reverse order - first character in the input should be on the top of the stack)
 - **nin** - Push input onto the stack as a base-10 number
 - **cout** - Pop and output the top value of the stack as a Unicode character
-- **nout** - Pop and output the top value of the stack as a base-10 number, appending a newline.
+- **nout** - Pop and output the top value of the stack as a base-10 integer
 
 ### Comparison/Flow Control
 - **eq** - Pop the top two values of the stack. If both values are equal, push 1 onto the stack. Else, push 0.
