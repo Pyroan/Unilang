@@ -1,6 +1,8 @@
 # does its best to compress the given program as much as possible
 # an annoying part of this implementation is that you have a string
 # like 'abcd', the output will look something like 'a_' and not '_d'
+
+
 def compress_program(prog: str) -> str:
     # Welcome to stringland!
     # the way we compress characters necessitates that the program be backwards.
@@ -8,7 +10,7 @@ def compress_program(prog: str) -> str:
     prog = list(reversed(prog))
     cmpr = []
     i = 0
-    
+
     next_chr = 0
     j = 0
     while i < len(prog):
@@ -21,7 +23,7 @@ def compress_program(prog: str) -> str:
                 cmpr.append(chr(next_chr + 0x5f))
                 next_chr = 0
                 j = 0
-                i -= 1 # so we don't skip the one we're looking at
+                i -= 1  # so we don't skip the one we're looking at
         else:
             # Playing catchup with the missing next_chr...
             # (bad)
@@ -38,6 +40,7 @@ def compress_program(prog: str) -> str:
 
     return ''.join(reversed(cmpr))
 
+
 def decompress_program(prog: str) -> str:
     decompressed = []
     for i in prog:
@@ -46,6 +49,7 @@ def decompress_program(prog: str) -> str:
         else:
             decompressed += list(decompress_char(i))
     return ''.join(decompressed)
+
 
 def decompress_char(char) -> str:
     snippet = []
@@ -58,6 +62,8 @@ def decompress_char(char) -> str:
     return ''.join(reversed(snippet))
 
 # Return true if the given codepoint is a valid unilang base op
+
+
 def is_base_op(codepoint: int):
     return 0x60 <= codepoint < 0x80
 
@@ -68,6 +74,8 @@ def is_base_op(codepoint: int):
 # More information available at http://www.unicode.org/faq/private_use.html
 # Allegedly two of the private-use ranges include valid characters but i'm
 # going to ignore that for now.
+
+
 def is_legal_char(codepoint: int):
     if codepoint >= 0x100000:
         return False
@@ -81,15 +89,12 @@ def is_legal_char(codepoint: int):
     # Noncharacters
     if 0xfdd0 <= codepoint <= 0xfdef:
         return False
-    # TODO generate this list programmatically
-    other_nonchars = [
-        0xfffe,  0xffff,  0x1fffe, 0x1ffff, 0x2fffe, 0x2ffff, 0x3fffe, 0x3ffff,
-        0x4fffe, 0x4ffff, 0x5fffe, 0x5ffff, 0x6fffe, 0x6ffff, 0x7fffe, 0x7ffff,
-        0x8fffe, 0x8ffff, 0x9fffe, 0x9ffff, 0xafffe, 0xaffff, 0xbfffe, 0xbffff,
-        0xcfffe, 0xcffff, 0xdfffe, 0xdffff, 0xefffe, 0xeffff, 0xffffe, 0xfffff,
-        0x10fffe, 0x10ffff 
-    ]
+
+    other_nonchars = []
+    for i in range(0x11):
+        other_nonchars += [0x10000*i + 0xfffe, 0x10000*i + 0xffff]
+
     if codepoint in other_nonchars:
         return False
-    
+
     return True
