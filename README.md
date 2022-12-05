@@ -18,7 +18,7 @@ python src/unilang.py -f input_file.uni -o output_file.uni
 ```
 
 ## THE BRIEF
-Unilang is a stack-based esoteric programming language where every valid¹ Unicode
+Unilang is a stack-based esoteric programming language where every valid[^1] Unicode
 character corresponds to a unique operation or sequence of operations. Unilang's
 only data structure is the main stack, which can be manipulated. Because of the
 axiom that all code should be valid, attempting to pop from an empty stack will
@@ -33,7 +33,7 @@ Code Points U+0060:U+007F are used for **base (chainable)** operations. Like
 non-chainable operations, these each correspond to one instruction. However,
 short sequences of base operations can be substituted with single characters above U+007F.
 
-All valid¹ points above U+007F are **chained** operations - they represent the same
+All valid points above U+007F are **chained** operations - they represent the same
 set of instructions as a short sequence of base operations. Each chained operation corresponds
 to one unique set of base operations.
 
@@ -58,6 +58,10 @@ Therefore,
 ʷ has the same function as qw
 ```
 For your convenience, the official Unilang interpreter provides a program compression feature, which will automatically combine base operations into chained ops for no extra charge!
+
+[^1]: A valid code point is defined as any number between 0x0 and 0x10ffff, excluding
+those which fall within Private Use Areas and Noncharacters as defined in the
+Unicode standard.
 
 ## NON-CHAINABLE OPS
 _Note: Some non-chainable ops are still missing._
@@ -170,9 +174,3 @@ represent strings of these operations.
 | Character | Codepoint | Base Ops | Description |
 | --------- | --------- | -------- | ----------- |
 | ʷ         | U+02b7    | qw       | Not Equals  |
-
-
----
-¹ A valid code point is defined as any number between 0x0 and 0x10ffff, excluding
-those which fall within Private Use Areas and Noncharacters as defined in the
-Unicode standard.
